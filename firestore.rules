@@ -1,0 +1,134 @@
+/**
+ * This ruleset defines the security model for the KlaroGov application,
+ * which manages public-facing web pages and their associated services.
+ *
+ * Core Philosophy: Public Read, Admin-Only Write
+ * All data within the `/pages` and `/services` collections is intended for
+ * public consumption and is therefore readable by anyone, including unauthenticated
+ * users. However, all write operations (creating, updating, or deleting content)
+ * are strictly limited to authenticated users who have been designated as
+ * administrators.
+ *
+ * Data Structure:
+ * The data is organized hierarchically. A top-level `/pages` collection stores
+ * all web page documents. Each page document can contain a subcollection of
+ * `/services` that are specific to that page.
+ *
+ * Key Security Decisions:
+ * - Public Read Access: To support the public-facing nature of the website, all
+ *   'get' and 'list' operations on pages and services are permitted for all users.
+ * - Admin-Restricted Writes: All 'create', 'update', and 'delete' operations
+ *   are protected and require the user to be an administrator. Administrator
+ *   status is determined by checking for the user's UID in a separate `/admins`
+ *   collection. This provides a centralized and secure way to manage content
+*    moderators.
+ * - Relational Integrity: When a new service is created, the rules ensure that
+ *   its internal `pageId` field correctly matches the parent page document it is
+ *   nested under. This field is then enforced as immutable to prevent data
+ *   corruption.
+ *
+ * Denormalization for Authorization:
+ * Authorization is managed through a dedicated `/admins/{userId}` collection.
+ * This approach is highly performant as it allows the `isAdmin()` helper function
+ * to use a single `exists()` call to verify a user's role without needing to read
+ * other documents. This avoids slow and costly `get()` calls within the rules for
+ * other collections.
+ *
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /*********************************************************************
+     * Helper Functions
+     *
+     * Reusable functions to make rules concise and readable.
+     *********************************************************************/
+
+    /**
+     * Checks if the user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Checks if the authenticated user is a designated administrator.
+     * Admin status is determined by the existence of a document for the user
+     * in the /admins collection.
+     */
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    /**
+     * Verifies that a document being updated or deleted actually exists.
+     * This prevents processing writes on non-existent documents.
+     */
+    function isExistingDoc() {
+      return resource != null;
+    }
+
+    /**
+     * On service creation, validates that the `pageId` field in the new
+     * document's data matches the ID of the parent page in the path.
+     */
+    function isCreatingServiceForPage(pageId) {
+      return request.resource.data.pageId == pageId;
+    }
+
+    /**
+     * On service update, ensures the `pageId` field is immutable.
+     */
+    function isServicePageIdUnchanged() {
+      return request.resource.data.pageId == resource.data.pageId;
+    }
+
+
+    /*********************************************************************
+     * Collection: pages
+     *
+     * Rules for the top-level collection of web pages.
+     *********************************************************************/
+
+    /**
+     * @description Anyone can read pages, but only admins can write them.
+     * @path        /pages/{pageId}
+     * @allow       (get) A visitor who is not signed in can read the 'about-us' page.
+     * @allow       (create) An admin user creates a new 'contact' page.
+     * @deny        (update) A regular signed-in user tries to change the title of the 'home' page.
+     * @principle   Implements a "Public Read, Admin-Only Write" access control pattern.
+     */
+    match /pages/{pageId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if isAdmin();
+      allow update: if isAdmin() && isExistingDoc();
+      allow delete: if isAdmin() && isExistingDoc();
+    }
+
+
+    /*********************************************************************
+     * Subcollection: services
+     *
+     * Rules for services, which are nested under a specific page.
+     *********************************************************************/
+
+    /**
+     * @description Anyone can read services, but only admins can write them.
+     *              Creation and updates include integrity checks.
+     * @path        /pages/{pageId}/services/{serviceId}
+     * @allow       (get) Any user can read the 'Digital ID' service details.
+     * @allow       (create) An admin adds a new 'Community Broadcasts' service to the 'services' page, ensuring the `pageId` in the data matches.
+     * @deny        (create) An admin attempts to create a service where the `pageId` in the document data does not match the page ID in the path.
+     * @principle   Enforces relational integrity by validating and making the parent `pageId` immutable.
+     */
+    match /pages/{pageId}/services/{serviceId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if isAdmin() && isCreatingServiceForPage(pageId);
+      allow update: if isAdmin() && isExistingDoc() && isServicePageIdUnchanged();
+      allow delete: if isAdmin() && isExistingDoc();
+    }
+  }
+}

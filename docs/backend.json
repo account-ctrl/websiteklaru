@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "Page": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Page",
+      "type": "object",
+      "description": "Represents a web page within the KlaroGov application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Page entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the page (e.g., 'Home', 'Services', 'About Us')."
+        },
+        "slug": {
+          "type": "string",
+          "description": "The URL-friendly slug for the page (e.g., 'home', 'services', 'about-us')."
+        },
+        "content": {
+          "type": "string",
+          "description": "The HTML or markdown content of the page."
+        },
+        "order": {
+          "type": "number",
+          "description": "Defines the order in which the page appears in navigation menus."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the page was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the page was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "content"
+      ]
+    },
+    "Service": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Service",
+      "type": "object",
+      "description": "Represents a service offered by KlaroGov.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Service entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the service (e.g., 'Digital ID', 'Community Broadcasts')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the service."
+        },
+        "icon": {
+          "type": "string",
+          "description": "The name or path to the SVG icon representing the service."
+        },
+        "pageId": {
+          "type": "string",
+          "description": "Reference to Page. (Relationship: Page 1:N Service)"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the service was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the service was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/pages/{pageId}",
+        "definition": {
+          "entityName": "Page",
+          "schema": {
+            "$ref": "#/backend/entities/Page"
+          },
+          "description": "Stores web page data. If access control is needed, this should be extended with a role mapping or ownership. Example: Includes denormalized 'members' map for authorization independence.",
+          "params": [
+            {
+              "name": "pageId",
+              "description": "The unique identifier for the page."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/pages/{pageId}/services/{serviceId}",
+        "definition": {
+          "entityName": "Service",
+          "schema": {
+            "$ref": "#/backend/entities/Service"
+          },
+          "description": "Stores service data related to a specific page. Includes denormalized 'pageId' to maintain the relation to its owning Page entity.",
+          "params": [
+            {
+              "name": "pageId",
+              "description": "The unique identifier for the parent page."
+            },
+            {
+              "name": "serviceId",
+              "description": "The unique identifier for the service."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to manage pages and services for the KlaroGov application. It prioritizes security, scalability, and debuggability by adhering to Authorization Independence (CRITICAL), Clarity of Intent, DBAC (Database-Based Access Control), and QAPs (Rules are not Filters) design principles.\n\n**Authorization Independence and QAPs:** Authorization independence is achieved by avoiding hierarchical authorization dependencies (`get()` calls in security rules). Since the requirements don't explicitly define user roles or ownership for pages and services, a global access model is assumed. If specific authorization rules are needed (e.g., only admins can create/update pages or services), consider a separate `/roles_admin/{uid}` collection to check for admin privileges without relying on data within page or service documents. If specific users need access only to certain services a membership map should be used to define access privileges (see strategy C).\n\nThe structure supports required QAPs by segregating different data types into separate collections (`pages` and `services`). Each collection maintains a homogeneous security posture, simplifying security rules. The `services` subcollection can securely list operations because access control is based on whether a user has a role (e.g., admin) or membership, which can be enforced at the collection level.\n\n**Data Clarity and Predictability:** Explicit state modeling is not applicable in this case, but predictable schema is enforced. Semantic naming conventions are used for collections and documents (e.g., `pages`, `services`)."
+  }
+}
