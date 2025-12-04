@@ -1,3 +1,7 @@
+"use client";
+
+import * as React from 'react';
+
 export function Footer() {
   const [year, setYear] = React.useState(new Date().getFullYear());
 
@@ -22,5 +26,3 @@ export function Footer() {
     </footer>
   );
 }
-// Using React to avoid hydration error with new Date()
-import * as React from 'react';
