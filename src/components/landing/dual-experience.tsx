@@ -4,26 +4,49 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const AdminView = () => (
-  <div className="w-full h-80 bg-slate-100 rounded-2xl p-4 flex gap-4 border border-slate-200">
-    <div className="w-1/4 bg-slate-200 rounded-lg"></div>
+  <div className="w-full h-96 bg-slate-100 rounded-2xl p-4 flex gap-4 border border-slate-200">
+    <div className="w-1/4 bg-slate-200 rounded-lg p-2 space-y-2">
+      <div className="h-8 bg-slate-300/80 rounded-md"></div>
+      <div className="h-4 bg-slate-300/50 rounded-md w-3/4"></div>
+       {[...Array(8)].map((_, i) => (
+          <div key={i} className="h-6 bg-slate-300/50 rounded" style={{ width: `${100 - i*5}%` }}></div>
+        ))}
+    </div>
     <div className="w-3/4 flex flex-col gap-3">
-      <div className="h-10 bg-slate-200 rounded-md"></div>
+      <div className="h-12 bg-slate-200 rounded-md flex items-center px-4">
+        <div className="h-5 w-48 bg-slate-300 rounded-md"></div>
+      </div>
       <div className="flex-1 bg-slate-200 rounded-md p-3 space-y-3">
         {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-4 bg-slate-300 rounded" style={{ width: `${100 - i*5}%` }}></div>
+          <div key={i} className="h-8 bg-slate-300 rounded-md" style={{ width: `${100 - i*10}%` }}></div>
         ))}
       </div>
+       <div className="flex justify-end">
+          <div className="h-10 w-32 bg-primary/80 rounded-md"></div>
+        </div>
     </div>
   </div>
 );
 
 const ResidentView = () => (
-  <div className="w-full h-80 bg-slate-100 rounded-2xl p-4 border border-slate-200">
+  <div className="w-full h-96 bg-slate-100 rounded-2xl p-4 border border-slate-200">
     <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
-      <div className="bg-accent-cyan rounded-lg"></div>
-      <div className="bg-accent-rose rounded-lg"></div>
-      <div className="bg-accent-slate rounded-lg"></div>
-      <div className="bg-accent-amber rounded-lg"></div>
+      <div className="bg-accent-cyan/80 rounded-lg p-4 flex flex-col justify-end">
+        <div className="h-6 w-3/4 bg-white/70 rounded-md"></div>
+        <div className="h-4 w-1/2 bg-white/50 rounded-md mt-2"></div>
+      </div>
+      <div className="bg-accent-rose/80 rounded-lg p-4 flex flex-col justify-end">
+        <div className="h-6 w-3/4 bg-white/70 rounded-md"></div>
+        <div className="h-4 w-1/2 bg-white/50 rounded-md mt-2"></div>
+      </div>
+      <div className="bg-accent-slate/80 rounded-lg p-4 flex flex-col justify-end">
+        <div className="h-6 w-3/4 bg-white/70 rounded-md"></div>
+        <div className="h-4 w-1/2 bg-white/50 rounded-md mt-2"></div>
+      </div>
+      <div className="bg-accent-amber/80 rounded-lg p-4 flex flex-col justify-end">
+        <div className="h-6 w-3/4 bg-white/70 rounded-md"></div>
+        <div className="h-4 w-1/2 bg-white/50 rounded-md mt-2"></div>
+      </div>
     </div>
   </div>
 );
@@ -69,7 +92,7 @@ export function DualExperience() {
           </div>
         </div>
 
-        <div className="relative max-w-3xl mx-auto">
+        <div className="relative max-w-5xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={view}

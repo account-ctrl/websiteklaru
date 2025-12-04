@@ -1,26 +1,36 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { AlertTriangle, File, Megaphone } from "lucide-react";
+import { AlertTriangle, FileText, Users, Truck } from "lucide-react";
 
 const capabilities = [
   {
-    title: "Rapid Response System",
+    title: "Emergency Response",
     icon: AlertTriangle,
-    color: "accent-rose",
+    description: "Coordinate and manage emergency situations with a rapid response system.",
     animation: "ripple",
+    color: "accent-rose"
   },
   {
-    title: "Digital Issuances",
-    icon: File,
-    color: "accent-cyan",
+    title: "Document Issuance",
+    icon: FileText,
+    description: "Streamline the creation and distribution of official documents and credentials.",
     animation: "slide",
+    color: "accent-cyan"
   },
   {
-    title: "Community Broadcasts",
-    icon: Megaphone,
-    color: "accent-amber",
+    title: "Constituent Management",
+    icon: Users,
+    description: "Maintain a comprehensive registry of residents, households, and more.",
     animation: "tilt",
+    color: "accent-amber"
+  },
+  {
+    title: "Asset & Fleet Management",
+    icon: Truck,
+    description: "Track and manage all your physical assets and vehicle fleet in one place.",
+    animation: "slide",
+    color: "accent-slate"
   },
 ];
 
@@ -92,21 +102,24 @@ export function Capabilities() {
             community, streamline services, and respond effectively.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {capabilities.map((item) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {capabilities.map((item, index) => (
             <motion.div
               key={item.title}
-              className="bg-white p-8 rounded-3xl shadow-soft h-full flex flex-col items-center text-center"
+              className="bg-card p-8 rounded-3xl shadow-soft h-full flex flex-col items-center text-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true, amount: 0.3 }}
             >
-              <div className="flex-grow flex items-center justify-center aspect-square">
+              <div className="flex-grow flex items-center justify-center h-24 w-24">
                  <IconAnimation animation={item.animation} color={item.color} Icon={item.icon} />
               </div>
               <p className="mt-6 text-lg font-semibold text-foreground">
                 {item.title}
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                {item.description}
               </p>
             </motion.div>
           ))}
