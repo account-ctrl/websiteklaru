@@ -93,7 +93,13 @@ export function Capabilities() {
   return (
     <section className="py-24 sm:py-32 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
+        >
           <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Built for Modern Governance
           </h2>
@@ -101,15 +107,16 @@ export function Capabilities() {
             KlaroGov provides an integrated suite of tools to connect with your
             community, streamline services, and respond effectively.
           </p>
-        </div>
+        </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {capabilities.map((item, index) => (
             <motion.div
               key={item.title}
               className="bg-card p-8 rounded-3xl shadow-soft h-full flex flex-col items-center text-center"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              transition={{ duration: 0.5, delay: index * 0.1, type: "spring", stiffness: 100 }}
               viewport={{ once: true, amount: 0.3 }}
             >
               <div className="flex-grow flex items-center justify-center h-24 w-24">

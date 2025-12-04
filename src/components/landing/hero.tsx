@@ -55,13 +55,18 @@ export function Hero() {
               KlaroGov is a unified platform for modern, transparent, and
               accessible government services.
             </p>
-            <Button
-              size="lg"
-              className="bg-white text-dark-slate hover:bg-slate-200"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Request a Demo
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+              <Button
+                size="lg"
+                className="bg-white text-dark-slate hover:bg-slate-200"
+              >
+                Request a Demo
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
         <div className="lg:w-1/2 w-full flex justify-center items-center h-[350px] sm:h-[450px]">
