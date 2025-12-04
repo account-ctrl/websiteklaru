@@ -2,6 +2,7 @@
 
 import { useUser } from '@/firebase';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import Link from 'next/link';
 
 export default function DashboardPage() {
   const { user } = useUser();
@@ -14,30 +15,36 @@ export default function DashboardPage() {
       </p>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
-          <CardHeader>
-            <CardTitle>My Profile</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>View and edit your personal information.</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>My Documents</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Access your issued documents and credentials.</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Settings</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Manage your account settings.</p>
-          </CardContent>
-        </Card>
+        <Link href="#">
+          <Card className="h-full">
+            <CardHeader>
+              <CardTitle>My Profile</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>View and edit your personal information.</p>
+            </CardContent>
+          </Card>
+        </Link>
+        <Link href="/dashboard/documents">
+          <Card className="h-full">
+            <CardHeader>
+              <CardTitle>My Documents</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Access your issued documents and credentials.</p>
+            </CardContent>
+          </Card>
+        </Link>
+        <Link href="#">
+          <Card className="h-full">
+            <CardHeader>
+              <CardTitle>Settings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Manage your account settings.</p>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
     </div>
   );
