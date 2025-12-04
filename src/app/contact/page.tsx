@@ -39,7 +39,7 @@ export default function ContactPage() {
             asChild
             variant="secondary"
             >
-            <Link href="/login">Login</Link>
+            <a href="https://demo-klaru.lithiumtech.co" target="_blank" rel="noopener noreferrer">Login</a>
             </Button>
         </div>
       </header>

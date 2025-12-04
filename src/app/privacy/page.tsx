@@ -1,9 +1,19 @@
+'use client';
+
 import { Footer } from "@/components/landing/footer";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
 
 export default function PrivacyPage() {
+  const [date, setDate] = useState('');
+
+  useEffect(() => {
+    setDate(new Date().toLocaleDateString());
+  }, []);
+
+
   return (
     <>
      <header className="absolute top-0 left-0 right-0 z-20 py-4">
@@ -16,7 +26,7 @@ export default function PrivacyPage() {
           asChild
           variant="secondary"
         >
-          <Link href="/login">Login</Link>
+          <a href="https://demo-klaru.lithiumtech.co" target="_blank" rel="noopener noreferrer">Login</a>
         </Button>
       </div>
     </header>
@@ -24,7 +34,7 @@ export default function PrivacyPage() {
       <div className="max-w-3xl mx-auto prose prose-slate lg:prose-lg">
         <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl mb-8">Privacy Policy</h1>
         
-        <p>Last Updated: {new Date().toLocaleDateString()}</p>
+        <p>Last Updated: {date}</p>
 
         <h2 className="text-2xl font-bold mt-8 mb-4">1. Introduction</h2>
         <p>

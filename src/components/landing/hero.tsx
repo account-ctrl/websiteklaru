@@ -20,7 +20,7 @@ function Header() {
           variant="secondary"
           className="bg-white/10 hover:bg-white/20 text-white"
         >
-          <Link href="/login">Login</Link>
+          <a href="https://demo-klaru.lithiumtech.co" target="_blank" rel="noopener noreferrer">Login</a>
         </Button>
       </div>
     </header>
@@ -36,7 +36,7 @@ export function Hero() {
           className="w-[800px] h-[800px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(6, 182, 212, 0.2), rgba(255, 237, 213, 0.1))",
+              "radial-gradient(circle, rgba(249, 115, 22, 0.1), rgba(255, 237, 213, 0.1))",
             filter: "blur(128px)",
           }}
         />
