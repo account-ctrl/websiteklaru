@@ -9,21 +9,21 @@ const capabilities = [
     icon: AlertTriangle,
     description: "Coordinate and manage emergency situations with a rapid response system.",
     animation: "ripple",
-    color: "accent-rose"
+    color: "primary"
   },
   {
     title: "Document Issuance",
     icon: FileText,
     description: "Streamline the creation and distribution of official documents and credentials.",
     animation: "slide",
-    color: "accent-cyan"
+    color: "accent-amber"
   },
   {
     title: "Constituent Management",
     icon: Users,
     description: "Maintain a comprehensive registry of residents, households, and more.",
     animation: "tilt",
-    color: "accent-amber"
+    color: "primary"
   },
   {
     title: "Asset & Fleet Management",

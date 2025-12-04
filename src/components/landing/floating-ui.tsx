@@ -78,10 +78,10 @@ export function FloatingUI() {
         }}
       >
         <div className="relative flex items-center justify-center w-10 h-10">
-          <div className="absolute w-full h-full rounded-full bg-accent-rose animate-ping opacity-75"></div>
-          <div className="w-6 h-6 rounded-full bg-accent-rose"></div>
+          <div className="absolute w-full h-full rounded-full bg-primary animate-ping opacity-75"></div>
+          <div className="w-6 h-6 rounded-full bg-primary"></div>
         </div>
-        <div className="h-2 w-16 bg-rose-100 rounded-full"></div>
+        <div className="h-2 w-16 bg-orange-100 rounded-full"></div>
       </motion.div>
     </div>
   );
