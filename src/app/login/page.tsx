@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
+import { Logo } from '@/components/logo';
 
 export default function LoginPage() {
   const auth = useAuth();
@@ -32,8 +33,12 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">KlaroGov Login</CardTitle>
+        <CardHeader className="items-center">
+          <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-foreground">
+            <Logo />
+            <span>KlaroGov</span>
+          </Link>
+          <CardTitle className="text-2xl font-bold pt-4">Login to your Account</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">

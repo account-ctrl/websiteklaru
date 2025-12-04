@@ -33,7 +33,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Logo } from '@/components/logo';
 
 export default function DashboardLayout({
   children,
@@ -77,8 +77,9 @@ export default function DashboardLayout({
       <Sidebar>
         <SidebarHeader>
           <div className="flex h-10 items-center justify-between px-2">
-            <Link href="/dashboard" className="text-xl font-bold">
-              KlaroGov
+            <Link href="/dashboard" className="flex items-center gap-2 text-xl font-bold">
+              <Logo />
+              <span className="group-data-[collapsible=icon]:hidden">KlaroGov</span>
             </Link>
             <SidebarTrigger />
           </div>

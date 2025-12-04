@@ -1,5 +1,6 @@
 import { Footer } from "@/components/landing/footer";
 import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/logo";
 import Link from "next/link";
 
 export default function TermsPage() {
@@ -7,8 +8,9 @@ export default function TermsPage() {
     <>
     <header className="absolute top-0 left-0 right-0 z-20 py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold text-foreground">
-          KlaroGov
+        <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-foreground">
+          <Logo />
+          <span>KlaroGov</span>
         </Link>
         <Button
           asChild
