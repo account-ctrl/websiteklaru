@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from 'react';
+import Link from 'next/link';
 
 export function Footer() {
   const [year, setYear] = React.useState(new Date().getFullYear());
@@ -17,9 +18,9 @@ export function Footer() {
             &copy; {year} KlaroGov. All rights reserved.
           </p>
           <div className="flex gap-4 mt-4 sm:mt-0">
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground">Privacy</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground">Terms</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground">Contact</a>
+            <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground">Privacy</Link>
+            <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground">Terms</Link>
+            <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground">Contact</Link>
           </div>
         </div>
       </div>
