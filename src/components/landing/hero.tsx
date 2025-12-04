@@ -18,7 +18,7 @@ function Header() {
           variant="secondary"
           className="bg-white/10 hover:bg-white/20 text-white"
         >
-          <Link href="#">Login</Link>
+          <Link href="/login">Login</Link>
         </Button>
       </div>
     </header>
