@@ -65,11 +65,21 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+        'dark-slate': '#1E293B',
+        'accent-cyan': '#06B6D4',
+        'accent-rose': '#F43F5E',
+        'accent-amber': '#F59E0B',
+        'accent-slate': '#334155',
+        'peach': '#FFEDD5',
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        '3xl': '1.5rem',
+      },
+      boxShadow: {
+        soft: '0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)',
       },
       keyframes: {
         'accordion-down': {
