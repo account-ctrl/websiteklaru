@@ -7,7 +7,7 @@ export default function LoginPage() {
   const router = useRouter();
 
   useEffect(() => {
-    window.location.href = 'https://login-klaru.lithiumtech.co';
+    window.location.href = 'https://login-klaro.lithiumtech.co';
   }, []);
 
   return (
