@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'KlaroGov: Modern Public Service Platform',
   description: 'A unified platform for modern, transparent, and accessible government services.',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/favicon.ico?v=2',
   },
 };
 
