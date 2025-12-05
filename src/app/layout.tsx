@@ -6,9 +6,6 @@ import { FirebaseClientProvider } from '@/firebase';
 export const metadata: Metadata = {
   title: 'KlaroGov: Modern Public Service Platform',
   description: 'A unified platform for modern, transparent, and accessible government services.',
-  icons: {
-    icon: '/KlaroGov Logo.png',
-  },
 };
 
 export default function RootLayout({
