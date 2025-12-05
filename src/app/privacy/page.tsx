@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           asChild
           variant="secondary"
         >
-          <a href="https://demo-klaru.lithiumtech.co" target="_blank" rel="noopener noreferrer">Login</a>
+          <a href="https://login-klaru.lithiumtech.co" target="_blank" rel="noopener noreferrer">Login</a>
         </Button>
       </div>
     </header>

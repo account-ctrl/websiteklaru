@@ -20,7 +20,7 @@ function Header() {
           variant="secondary"
           className="bg-white/10 hover:bg-white/20 text-white"
         >
-          <a href="https://demo-klaru.lithiumtech.co" target="_blank" rel="noopener noreferrer">Login</a>
+          <a href="https://login-klaru.lithiumtech.co" target="_blank" rel="noopener noreferrer">Login</a>
         </Button>
       </div>
     </header>
